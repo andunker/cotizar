@@ -163,6 +163,7 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Laraveles\Spanish\SpanishServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
     ],
 
