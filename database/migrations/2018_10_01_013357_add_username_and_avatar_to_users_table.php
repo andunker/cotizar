@@ -14,7 +14,12 @@ class AddUsernameAndAvatarToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('username')->unique(); 
+            $table->string('username')->unique();
+            $table->boolean('id_tipo_documento');
+            $table->integer('documento');
+            $table->index(
+                ['id_tipo_documento', 'documento'] , 'documento_unico'
+            )->unique();
         });
     }
 
@@ -26,8 +31,10 @@ class AddUsernameAndAvatarToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('username'); 
-            $table->dropColumn('avatar');
+            $table->dropColumn('username');
+            $table->dropIndex('documento_unico');
+            $table->dropColumn('id_tipo_documento');
+            $table->dropColumn('documento');
         });
     }
 }

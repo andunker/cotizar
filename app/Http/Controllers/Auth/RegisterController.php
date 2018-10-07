@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Cliente;
+use App\Proveedore;
+use App\TipoDocumento;
 
 class RegisterController extends Controller
 {
@@ -19,9 +22,20 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-    */
+     */
 
     use RegistersUsers;
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        $documentos = TipoDocumento::all();
+        return view('auth.register', compact('documentos'));
+    }
 
     /**
      * Where to redirect users after registration.
@@ -53,6 +67,8 @@ class RegisterController extends Controller
             'username' => 'required|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'id_tipo_documento' => 'required|int|max:2',
+            'documento' => 'required|max:15'
         ]);
     }
 
@@ -64,11 +80,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $usuario = User::create([
             'name' => $data['name'],
-            'username' => $data['username'], 
+            'id_tipo_documento' => $data['id_tipo_documento'],
+            'documento' => $data['documento'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        Cliente::create([
+            'user_id' => $usuario->id
+        ]);
+
+        $data['proveedor'] = $data['proveedor'] ?? 'off';
+        if ($data['proveedor'] == 'on') {
+            Proveedore::create([
+                'user_id' => $usuario->id
+            ]);
+        }
+
+        return $usuario;
+
     }
 }
