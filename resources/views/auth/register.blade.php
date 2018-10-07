@@ -40,7 +40,7 @@
                                 @endif
                             </div>
                         </div>
-                        <!--nuevo -->
+
                         <div class="form-group row">
                             <label for="id_tipo_documento" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de
                                 documento') }}</label>
@@ -78,7 +78,43 @@
                                 @endif
                             </div>
                         </div>
-                        <!-- fin nuevo-->
+
+                        <div class="form-group row">
+                            <label for="id_tipo_documento" class="col-md-4 col-form-label text-md-right">{{
+                                __('Ciudad') }}</label>
+                            <div class="col-md-6">
+
+                                <select id="id_ciudad" class="form-control{{ $errors->has('id_ciudad') ? ' is-invalid' : '' }}"
+                                    name="id_ciudad" value="{{ old('id_ciudad') }}" required autofocus>
+                                    <option>--Seleccione ciudad-</option>
+                                    @foreach($ciudades as $ciudad)
+                                    <option value="{{$ciudad->id}}">{{$ciudad->nombre}}</option>
+                                    @endforeach
+                                </select>
+
+                                @if ($errors->has('id_ciudad'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('id_ciudad') }}</strong>
+                                </span>
+                                @endif
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="direccion" class="col-md-4 col-form-label text-md-right">{{ __('Dirección') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="direccion" type="text" class="form-control{{ $errors->has('direccion') ? ' is-invalid' : '' }}"
+                                    name="direccion" value="{{ old('direccion') }}" required autofocus>
+
+                                @if ($errors->has('direccion'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('direccion') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
@@ -111,8 +147,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm
-                                Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation"

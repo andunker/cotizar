@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Cliente;
 use App\Proveedore;
 use App\TipoDocumento;
+use App\Ciudade;
+use App\Direccione;
 
 class RegisterController extends Controller
 {
@@ -34,7 +36,11 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $documentos = TipoDocumento::all();
-        return view('auth.register', compact('documentos'));
+        $ciudades = Ciudade::all();
+        return view('auth.register', [
+            'documentos' => $documentos,
+            'ciudades' => $ciudades
+        ]);
     }
 
     /**
@@ -87,6 +93,12 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+        ]);
+
+        Direccione::create([
+            'direccion_txt' => $data['direccion'],
+            'ciudad_id' => $data['id_ciudad'],
+            'user_id' => $usuario->id
         ]);
 
         Cliente::create([
