@@ -13,7 +13,7 @@
 Auth::routes();
 
 Route::get('/', 'PagesController@home');
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 //opcional logs
 Route::get('/logs/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
