@@ -101,6 +101,11 @@ class UserController extends Controller
         return response()->json(['success' => $user], $this->successStatus);
     }
 
+    /** 
+     * logout api 
+     * 
+     * @return \Illuminate\Http\Response 
+     */
     public function logout(Request $request)
     {
         $value = $request->bearerToken();

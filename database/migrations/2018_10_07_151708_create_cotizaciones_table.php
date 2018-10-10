@@ -16,7 +16,6 @@ class CreateCotizacionesTable extends Migration
         Schema::create('cotizaciones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('json_productos');
-            $table->string('json_categorias');
             $table->binary('estado');
             $table->dateTime('fecha_cierre');
             $table->integer('cliente_id')->unsigned();
